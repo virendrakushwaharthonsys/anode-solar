@@ -116,7 +116,7 @@
           href="https://godaylight.com"
           target="_blank"
         >
-          Anodelab
+          Daylight
           <!-- <img slot="icon" src="github-mark.svg" alt="GitHub" width="16" height="16" /> -->
         </md-text-button>
       </div>
