@@ -67,8 +67,11 @@
   // Advanced settings
   let dcToAcDerate = 0.85;
   let efficiencyDepreciationFactor = 0.995;
-  let costIncreaseFactor = 1.022;
-  let discountRate = 1.04;
+  // let costIncreaseFactor = 1.022;
+  // let discountRate = 1.04;
+
+  let costIncreaseFactor = 1.035;
+  let discountRate = 1.00;
 
   // Solar installation
   let installationSizeKw: number = (panelsCount * panelCapacityWatts) / 1000;
@@ -317,13 +320,19 @@
           label="Energy cost increase per year"
           onChange={updateConfig}
         />
+        <!-- <InputRatio
+          value={3.2}
+          icon="price_change"
+          label="Energy cost increase per year"
+          onChange={updateConfig}
+        /> -->
 
-        <InputRatio
+        <!-- <InputRatio
           bind:value={discountRate}
           icon="local_offer"
           label="Discount rate per year"
           onChange={updateConfig}
-        />
+        /> -->
       </div>
     {/if}
 
