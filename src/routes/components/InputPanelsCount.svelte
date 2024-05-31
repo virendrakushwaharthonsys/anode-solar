@@ -27,14 +27,29 @@
     configId = target.value ?? 0;
   }
   onMount(() => {
+    // Function to get a query parameter by name
     function getQueryParam(param: string): string | null {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
     }
 
-    const panelCountFromUrl = parseInt(getQueryParam('panel-count') ?? '0', 10);
-    console.log('Panel count from URL:', panelCountFromUrl);
+    const panelCountParam = getQueryParam('panel-count');
+    console.log('Panel count parameter from URL:', panelCountParam);
 
+    let panelCountFromUrl = 4; // default value
+    if (panelCountParam !== null) {
+      const parsedPanelCount = parseInt(panelCountParam, 10);
+      if (!isNaN(parsedPanelCount)) {
+        panelCountFromUrl = parsedPanelCount;
+      } else {
+        console.warn('Invalid panel count value in URL. Using default value of 4.');
+      }
+    } else {
+      console.warn('Panel count parameter not found in URL. Using default value of 4.');
+    }
+    console.log('Panel count to be used:', panelCountFromUrl);
+
+    // Find the configId based on the panel count
     const configIndex = solarPanelConfigs.findIndex(
       (config) => config.panelsCount === panelCountFromUrl,
     );
@@ -43,7 +58,8 @@
     if (configIndex !== -1) {
       configId = configIndex;
     } else {
-      console.warn('Panel count not found in configurations.');
+      console.warn('Panel count not found in configurations. Setting to default configId.');
+      configId = solarPanelConfigs.findIndex((config) => config.panelsCount === 4);
     }
   });
 </script>
