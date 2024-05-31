@@ -17,6 +17,7 @@
 <script lang="ts">
   import type { MdSlider } from '@material/web/slider/slider';
   import type { SolarPanelConfig } from '../solar';
+  import { onMount } from 'svelte';
 
   export let configId: number;
   export let solarPanelConfigs: SolarPanelConfig[];
@@ -25,6 +26,26 @@
     const target = event.target as MdSlider;
     configId = target.value ?? 0;
   }
+  onMount(() => {
+    function getQueryParam(param: string): string | null {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    const panelCountFromUrl = parseInt(getQueryParam('panel-count') ?? '0', 10);
+    console.log('Panel count from URL:', panelCountFromUrl);
+
+    const configIndex = solarPanelConfigs.findIndex(
+      (config) => config.panelsCount === panelCountFromUrl,
+    );
+    console.log('Config index found:', configIndex);
+
+    if (configIndex !== -1) {
+      configId = configIndex;
+    } else {
+      console.warn('Panel count not found in configurations.');
+    }
+  });
 </script>
 
 <div>
