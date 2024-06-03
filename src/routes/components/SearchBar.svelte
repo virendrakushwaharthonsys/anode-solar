@@ -1,4 +1,4 @@
-<!--
+<!-- 
  Copyright 2023 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,14 +28,18 @@
   export let zoom = 19;
 
   let textFieldElement: MdFilledTextField;
-
+  function getQueryParam(name: string): string | null {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+  }
   onMount(async () => {
-    // https://lit.dev/docs/components/shadow-dom/
+    // Wait for the text field to be rendered
     await textFieldElement.updateComplete;
     const inputElement = textFieldElement.renderRoot.querySelector('input') as HTMLInputElement;
     const autocomplete = new placesLibrary.Autocomplete(inputElement, {
       fields: ['formatted_address', 'geometry', 'name'],
     });
+
     autocomplete.addListener('place_changed', async () => {
       const place = autocomplete.getPlace();
       if (!place.geometry || !place.geometry.location) {
@@ -43,7 +47,6 @@
         return;
       }
       if (place.geometry.viewport) {
-        // map.fitBounds(place.geometry.viewport);
         map.setCenter(place.geometry.location);
         map.setZoom(zoom);
       } else {
@@ -58,6 +61,28 @@
         textFieldElement.value = place.formatted_address;
       }
     });
+
+    // Check if there is an address in the URL
+    const addressFromUrl = getQueryParam('address');
+    if (addressFromUrl) {
+      inputElement.value = addressFromUrl;
+      const placesService = new google.maps.places.PlacesService(map);
+      placesService.textSearch({ query: addressFromUrl }, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK && results && results[0]) {
+          const place = results[0];
+          if (place.geometry && place.geometry.location) {
+            map.setCenter(place.geometry.location);
+            map.setZoom(zoom);
+            location = place.geometry.location;
+            if (place.name) {
+              textFieldElement.value = place.name;
+            } else if (place.formatted_address) {
+              textFieldElement.value = place.formatted_address;
+            }
+          }
+        }
+      });
+    }
   });
 </script>
 
