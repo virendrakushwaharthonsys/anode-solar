@@ -71,7 +71,7 @@
   // let discountRate = 1.04;
 
   let costIncreaseFactor = 1.035;
-  let discountRate = 1.00;
+  let discountRate = 1.0;
 
   // Solar installation
   let installationSizeKw: number = (panelsCount * panelCapacityWatts) / 1000;

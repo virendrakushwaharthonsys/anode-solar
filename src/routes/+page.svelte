@@ -34,12 +34,79 @@
   const zoom = 19;
 
   // Initialize app.
+  const defaultPanelCount = 4;
   let mapElement: HTMLElement;
   let map: google.maps.Map;
   let geometryLibrary: google.maps.GeometryLibrary;
   let mapsLibrary: google.maps.MapsLibrary;
   let placesLibrary: google.maps.PlacesLibrary;
+  // onMount(async () => {
+  //   // Load the Google Maps libraries.
+  //   const loader = new Loader({ apiKey: googleMapsApiKey });
+  //   const libraries = {
+  //     geometry: loader.importLibrary('geometry'),
+  //     maps: loader.importLibrary('maps'),
+  //     places: loader.importLibrary('places'),
+  //   };
+  //   geometryLibrary = await libraries.geometry;
+  //   mapsLibrary = await libraries.maps;
+  //   placesLibrary = await libraries.places;
+
+  //   // Get the address information for the default location.
+  //   const geocoder = new google.maps.Geocoder();
+  //   const geocoderResponse = await geocoder.geocode({
+  //     address: defaultPlace.address,
+  //   });
+  //   const geocoderResult = geocoderResponse.results[0];
+
+  //   // Initialize the map at the desired location.
+  //   location = geocoderResult.geometry.location;
+  //   map = new mapsLibrary.Map(mapElement, {
+  //     center: location,
+  //     zoom: zoom,
+  //     tilt: 0,
+  //     mapTypeId: 'satellite',
+  //     mapTypeControl: false,
+  //     fullscreenControl: false,
+  //     rotateControl: false,
+  //     streetViewControl: false,
+  //     zoomControl: false,
+  //   });
+  // });
+  const placeSolarPanels = (location: google.maps.LatLng, panelCount: number) => {
+    const panelIcon = {
+      url: 'path_to_your_solar_panel_icon.png', // Update with the actual path to your solar panel icon
+      scaledSize: new google.maps.Size(20, 20), // Adjust the size as needed
+    };
+
+    for (let i = 0; i < panelCount; i++) {
+      const offsetX = (Math.random() - 0.5) * 0.0001;
+      const offsetY = (Math.random() - 0.5) * 0.0001;
+      const panelLocation = new google.maps.LatLng(
+        location.lat() + offsetX,
+        location.lng() + offsetY,
+      );
+
+      new google.maps.Marker({
+        position: panelLocation,
+        map: map,
+        icon: panelIcon,
+      });
+    }
+  };
+
+  const updateMapLocation = async (address: string, panelCount: number) => {
+    const geocoder = new google.maps.Geocoder();
+    const geocoderResponse = await geocoder.geocode({ address });
+    const geocoderResult = geocoderResponse.results[0];
+    location = geocoderResult.geometry.location;
+    map.setCenter(location);
+    placeSolarPanels(location, panelCount);
+  };
   onMount(async () => {
+    const params = new URLSearchParams(window.location.search);
+    const address = params.get('address') || defaultPlace.address;
+    const panelCount = parseInt(params.get('panelCount') ?? `${defaultPanelCount}`);
     // Load the Google Maps libraries.
     const loader = new Loader({ apiKey: googleMapsApiKey });
     const libraries = {
@@ -51,11 +118,9 @@
     mapsLibrary = await libraries.maps;
     placesLibrary = await libraries.places;
 
-    // Get the address information for the default location.
+    // Get the address information for the location.
     const geocoder = new google.maps.Geocoder();
-    const geocoderResponse = await geocoder.geocode({
-      address: defaultPlace.address,
-    });
+    const geocoderResponse = await geocoder.geocode({ address });
     const geocoderResult = geocoderResponse.results[0];
 
     // Initialize the map at the desired location.
@@ -70,6 +135,15 @@
       rotateControl: false,
       streetViewControl: false,
       zoomControl: false,
+    });
+    await updateMapLocation(address, panelCount);
+
+    // Watch for changes in the URL and update the map.
+    window.addEventListener('popstate', () => {
+      const newParams = new URLSearchParams(window.location.search);
+      const newAddress = (newParams.get('address') ?? defaultPlace.address) as string;
+      const newPanelCount = parseInt(newParams.get('panelCount') ?? `${defaultPanelCount}`);
+      updateMapLocation(newAddress, newPanelCount);
     });
   });
 </script>
@@ -112,10 +186,7 @@
       <div class="grow" />
 
       <div class="flex flex-col items-center w-full">
-        <md-text-button
-          href="https://godaylight.com"
-          target="_blank"
-        >
+        <md-text-button href="https://godaylight.com" target="_blank">
           Daylight
           <!-- <img slot="icon" src="github-mark.svg" alt="GitHub" width="16" height="16" /> -->
         </md-text-button>

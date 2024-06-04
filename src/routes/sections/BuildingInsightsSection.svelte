@@ -90,7 +90,6 @@
     } finally {
       requestSent = false;
     }
-
     // Create the solar panels on the map.
     const solarPotential = buildingInsights.solarPotential;
     const palette = createPalette(panelsPalette).map(rgbToColor);
