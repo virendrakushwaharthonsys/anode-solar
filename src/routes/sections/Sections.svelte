@@ -1,4 +1,4 @@
-<!--
+<!-- 
  Copyright 2023 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +27,7 @@
   export let map: google.maps.Map;
   export let geometryLibrary: google.maps.GeometryLibrary;
   export let googleMapsApiKey: string;
-
+  // export const panelCountFromUrl: number;
   let buildingInsights: BuildingInsightsResponse | undefined;
 
   // State

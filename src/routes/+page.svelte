@@ -32,7 +32,7 @@
   };
   let location: google.maps.LatLng | undefined;
   const zoom = 19;
-
+  let showAside = true;
   // Initialize app.
   const defaultPanelCount = 4;
   let mapElement: HTMLElement;
@@ -40,6 +40,7 @@
   let geometryLibrary: google.maps.GeometryLibrary;
   let mapsLibrary: google.maps.MapsLibrary;
   let placesLibrary: google.maps.PlacesLibrary;
+  // const panelCountFromUrl: number;
   // onMount(async () => {
   //   // Load the Google Maps libraries.
   //   const loader = new Loader({ apiKey: googleMapsApiKey });
@@ -74,25 +75,9 @@
   //   });
   // });
   const placeSolarPanels = (location: google.maps.LatLng, panelCount: number) => {
-    const panelIcon = {
-      url: 'path_to_your_solar_panel_icon.png', // Update with the actual path to your solar panel icon
-      scaledSize: new google.maps.Size(20, 20), // Adjust the size as needed
-    };
-
-    for (let i = 0; i < panelCount; i++) {
-      const offsetX = (Math.random() - 0.5) * 0.0001;
-      const offsetY = (Math.random() - 0.5) * 0.0001;
-      const panelLocation = new google.maps.LatLng(
-        location.lat() + offsetX,
-        location.lng() + offsetY,
-      );
-
-      new google.maps.Marker({
-        position: panelLocation,
-        map: map,
-        icon: panelIcon,
-      });
-    }
+    new google.maps.Marker({
+      map: map,
+    });
   };
 
   const updateMapLocation = async (address: string, panelCount: number) => {
@@ -106,6 +91,8 @@
   onMount(async () => {
     const params = new URLSearchParams(window.location.search);
     const address = params.get('address') || defaultPlace.address;
+    const fullscreenParam = params.get('fullscreen');
+    showAside = !fullscreenParam || fullscreenParam.toLowerCase() !== 'true';
     const panelCount = parseInt(params.get('panelCount') ?? `${defaultPanelCount}`);
     // Load the Google Maps libraries.
     const loader = new Loader({ apiKey: googleMapsApiKey });
@@ -136,6 +123,7 @@
       streetViewControl: false,
       zoomControl: false,
     });
+
     await updateMapLocation(address, panelCount);
 
     // Watch for changes in the URL and update the map.
@@ -154,7 +142,8 @@
   <div bind:this={mapElement} class="w-full" />
 
   <!-- Side bar -->
-  <aside class="flex-none md:w-96 w-80 p-2 pt-3 overflow-auto">
+  <!-- {#if showAside} -->
+  <aside class:hide-aside={!showAside} class="flex-none md:w-96 w-80 p-2 pt-3 overflow-auto">
     <div class="flex flex-col space-y-2 h-full">
       {#if placesLibrary && map}
         <SearchBar bind:location {placesLibrary} {map} initialValue={defaultPlace.name} />
@@ -180,6 +169,7 @@
       </div> -->
 
       {#if location}
+        <!-- svelte-ignore missing-declaration -->
         <Sections {location} {map} {geometryLibrary} {googleMapsApiKey} />
       {/if}
 
@@ -207,4 +197,11 @@
       </span> -->
     </div>
   </aside>
+  <!-- {/if} -->
 </div>
+
+<style>
+  .hide-aside {
+    display: none;
+  }
+</style>

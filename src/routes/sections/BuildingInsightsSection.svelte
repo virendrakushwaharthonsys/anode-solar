@@ -14,6 +14,137 @@
  limitations under the License.
  -->
 
+<!-- <script lang="ts">
+  import type { MdDialog } from '@material/web/dialog/dialog';
+  import Expandable from '../components/Expandable.svelte';
+  import {
+    type BuildingInsightsResponse,
+    type RequestError,
+    findClosestBuilding,
+    type SolarPanelConfig,
+  } from '../solar';
+  import Show from '../components/Show.svelte';
+  import SummaryCard from '../components/SummaryCard.svelte';
+  import { createPalette, normalize, rgbToColor } from '../visualize';
+  import { panelsPalette } from '../colors';
+  import InputBool from '../components/InputBool.svelte';
+  import InputPanelsCount from '../components/InputPanelsCount.svelte';
+  import { showNumber } from '../utils';
+  import NumberInput from '../components/InputNumber.svelte';
+  import Gauge from '../components/Gauge.svelte';
+
+  export let expandedSection: string;
+  export let buildingInsights: BuildingInsightsResponse | undefined;
+  export let configId: number | undefined;
+  export let panelCapacityWatts: number;
+  export let showPanels: boolean;
+  export let panelCountFromUrl: number;
+
+  export let googleMapsApiKey: string;
+  export let geometryLibrary: google.maps.GeometryLibrary;
+  export let location: google.maps.LatLng;
+  export let map: google.maps.Map;
+
+  const icon = 'home';
+  const title = 'Building Insights endpoint';
+
+  let requestSent = false;
+  let requestError: RequestError | undefined;
+  let apiResponseDialog: MdDialog;
+
+  let panelConfig: SolarPanelConfig | undefined;
+  $: if (buildingInsights && configId !== undefined) {
+    panelConfig = buildingInsights.solarPotential.solarPanelConfigs[configId];
+  }
+
+  let solarPanels: google.maps.Polygon[] = [];
+  $: solarPanels.map((panel, i) =>
+    panel.setMap(showPanels && panelConfig && i < panelConfig.panelsCount ? map : null),
+  );
+
+  let panelCapacityRatio = 1.0;
+  $: if (buildingInsights) {
+    const defaultPanelCapacity = buildingInsights.solarPotential.panelCapacityWatts;
+    panelCapacityRatio = panelCapacityWatts / defaultPanelCapacity;
+  }
+
+  function getQueryParam(param: string): string | null {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  // Initialize configId from URL parameter
+  $: {
+    const panelCountParam = getQueryParam('panel-count');
+    panelCountFromUrl = panelCountParam ? parseInt(panelCountParam) : 4; // Default to 4 panels if not provided
+    configId = buildingInsights
+      ? buildingInsights.solarPotential.solarPanelConfigs.findIndex(
+          (config) => config.panelsCount === panelCountFromUrl,
+        )
+      : undefined;
+    if (configId === -1) {
+      console.warn('Panel count not found in configurations. Setting to default configId.');
+      configId = undefined; // Reset configId
+    }
+  }
+
+  export async function showSolarPotential(location: google.maps.LatLng) {
+    if (requestSent) {
+      return;
+    }
+
+    console.log('showSolarPotential');
+    buildingInsights = undefined;
+    requestError = undefined;
+
+    solarPanels.map((panel) => panel.setMap(null));
+    solarPanels = [];
+
+    requestSent = true;
+    try {
+      buildingInsights = await findClosestBuilding(location, googleMapsApiKey);
+    } catch (e) {
+      requestError = e as RequestError;
+      return;
+    } finally {
+      requestSent = false;
+    }
+    // Create the solar panels on the map.
+    const solarPotential = buildingInsights.solarPotential;
+    const palette = createPalette(panelsPalette).map(rgbToColor);
+    const minEnergy = solarPotential.solarPanels.slice(-1)[0].yearlyEnergyDcKwh;
+    const maxEnergy = solarPotential.solarPanels[0].yearlyEnergyDcKwh;
+    solarPanels = solarPotential.solarPanels.map((panel) => {
+      const [w, h] = [solarPotential.panelWidthMeters / 2, solarPotential.panelHeightMeters / 2];
+      const points = [
+        { x: +w, y: +h }, // top right
+        { x: +w, y: -h }, // bottom right
+        { x: -w, y: -h }, // bottom left
+        { x: -w, y: +h }, // top left
+        { x: +w, y: +h }, //  top right
+      ];
+      const orientation = panel.orientation == 'PORTRAIT' ? 90 : 0;
+      const azimuth = solarPotential.roofSegmentStats[panel.segmentIndex].azimuthDegrees;
+      const colorIndex = Math.round(normalize(panel.yearlyEnergyDcKwh, maxEnergy, minEnergy) * 255);
+      return new google.maps.Polygon({
+        paths: points.map(({ x, y }) =>
+          geometryLibrary.spherical.computeOffset(
+            { lat: panel.center.latitude, lng: panel.center.longitude },
+            Math.sqrt(x * x + y * y),
+            Math.atan2(y, x) * (180 / Math.PI) + orientation + azimuth,
+          ),
+        ),
+        strokeColor: '#B0BEC5',
+        strokeOpacity: 0.9,
+        strokeWeight: 1,
+        fillColor: palette[colorIndex],
+        fillOpacity: 0.9,
+      });
+    });
+  }
+
+  $: showSolarPotential(location);
+</script> -->
 <script lang="ts">
   /* global google */
 
@@ -48,7 +179,7 @@
 
   const icon = 'home';
   const title = 'Building Insights endpoint';
-
+  let panelCountFromUrl: number;
   let requestSent = false;
   let requestError: RequestError | undefined;
   let apiResponseDialog: MdDialog;
@@ -62,7 +193,26 @@
   $: solarPanels.map((panel, i) =>
     panel.setMap(showPanels && panelConfig && i < panelConfig.panelsCount ? map : null),
   );
+  function getQueryParam(param: string): string | null {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
 
+  $: {
+    const panelCountParam = getQueryParam('panel-count');
+    if (panelCountParam !== null) {
+      panelCountFromUrl = parseInt(panelCountParam) || 4; // Default to 4 panels if not provided
+      configId = buildingInsights
+        ? buildingInsights.solarPotential.solarPanelConfigs.findIndex(
+            (config) => config.panelsCount === panelCountFromUrl,
+          )
+        : undefined;
+      if (configId === -1) {
+        console.warn('Panel count not found in configurations. Setting to default configId.');
+        configId = undefined; // Reset configId
+      }
+    }
+  }
   let panelCapacityRatio = 1.0;
   $: if (buildingInsights) {
     const defaultPanelCapacity = buildingInsights.solarPotential.panelCapacityWatts;
