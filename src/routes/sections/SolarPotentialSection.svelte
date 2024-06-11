@@ -1,19 +1,3 @@
-<!--
- Copyright 2023 Google LLC
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-      https://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- -->
-
 <script lang="ts">
   /* global google */
 
@@ -37,7 +21,6 @@
   export let expandedSection: string;
   export let configId: number;
   export let monthlyAverageEnergyBillInput: number;
-  export let energyCostPerKwhInput: number;
   export let panelCapacityWattsInput: number;
   export let dcToAcDerateInput: number;
   export let solarPanelConfigs: SolarPanelConfig[];
@@ -45,7 +28,9 @@
 
   const icon = 'payments';
   const title = 'Solar Potential analysis';
-
+  let storedSelectedStateRate = localStorage.getItem('selectedStateRate');
+  let energyCostPerKwhInput = storedSelectedStateRate ? JSON.parse(storedSelectedStateRate) : 0;
+  // console.log('selectedStateRateing:', energyCostPerKwhInput);/////
   let costChart: HTMLElement;
   let showAdvancedSettings = false;
 
@@ -56,19 +41,14 @@
 
   // Basic settings
   let monthlyAverageEnergyBill: number = 300;
-  let energyCostPerKwh = 0.31;
   let panelCapacityWatts = 400;
   let solarIncentives: number = 7000;
   let installationCostPerWatt: number = 2.55;
-  //let installationLifeSpan: number = 20;
   let installationLifeSpan: number = 25;
 
   // Advanced settings
   let dcToAcDerate = 0.85;
   let efficiencyDepreciationFactor = 0.995;
-  // let costIncreaseFactor = 1.022;
-  // let discountRate = 1.04;
-
   let costIncreaseFactor = 1.035;
   let discountRate = 1.0;
 
@@ -77,7 +57,7 @@
   let installationCostTotal: number = installationCostPerWatt * installationSizeKw * 1000;
 
   // Energy consumption
-  let monthlyKwhEnergyConsumption: number = monthlyAverageEnergyBill / energyCostPerKwh;
+  let monthlyKwhEnergyConsumption: number = monthlyAverageEnergyBill / energyCostPerKwhInput;
   let yearlyKwhEnergyConsumption: number = monthlyKwhEnergyConsumption * 12;
 
   // Energy produced for installation life span
@@ -91,7 +71,7 @@
     (yearlyKwhEnergyProduced, year) => {
       const billEnergyKwh = yearlyKwhEnergyConsumption - yearlyKwhEnergyProduced;
       const billEstimate =
-        (billEnergyKwh * energyCostPerKwh * costIncreaseFactor ** year) / discountRate ** year;
+        (billEnergyKwh * energyCostPerKwhInput * costIncreaseFactor ** year) / discountRate ** year;
       return Math.max(billEstimate, 0); // bill cannot be negative
     },
   );
@@ -201,6 +181,8 @@
       panelCapacityRatio,
       dcToAcDerateInput,
     );
+    localStorage.removeItem('selectedStateRate');
+    localStorage.setItem('selectedStateRate', JSON.stringify(energyCostPerKwhInput));
   }
 </script>
 

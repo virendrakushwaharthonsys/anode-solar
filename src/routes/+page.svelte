@@ -40,6 +40,7 @@
   let geometryLibrary: google.maps.GeometryLibrary;
   let mapsLibrary: google.maps.MapsLibrary;
   let placesLibrary: google.maps.PlacesLibrary;
+  let selectedStateRate: number;
   // const panelCountFromUrl: number;
   // onMount(async () => {
   //   // Load the Google Maps libraries.
@@ -170,7 +171,7 @@
 
       {#if location}
         <!-- svelte-ignore missing-declaration -->
-        <Sections {location} {map} {geometryLibrary} {googleMapsApiKey} />
+        <Sections {location} {map} {geometryLibrary} {googleMapsApiKey} {selectedStateRate} />
       {/if}
 
       <div class="grow" />

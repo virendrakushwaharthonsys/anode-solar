@@ -1,0 +1,434 @@
+[
+    {
+        "id": 91200,
+        "state": "AK",
+        "name": "Alaska Electric Light & Power Co.",
+        "eia_id": null,
+        "avg_residential_rate": null,
+        "percent_renewable": null
+    },
+    {
+        "id": 91212,
+        "state": "AL",
+        "name": "Alabama Power Co",
+        "eia_id": 195.0,
+        "avg_residential_rate": 0.135,
+        "percent_renewable": 0.42
+    },
+    {
+        "id": 91258,
+        "state": "AR",
+        "name": "Arkansas Valley Elec Coop Corp",
+        "eia_id": 817.0,
+        "avg_residential_rate": 0.107,
+        "percent_renewable": 0.3
+    },
+    {
+        "id": 91306,
+        "state": "CA",
+        "name": "Alameda Municipal Power",
+        "eia_id": null,
+        "avg_residential_rate": 0.1996,
+        "percent_renewable": 0.53
+    },
+    {
+        "id": 91340,
+        "state": "CO",
+        "name": "Black Hills Colorado Electric, LLC",
+        "eia_id": 56146.0,
+        "avg_residential_rate": 0.164,
+        "percent_renewable": 0.33
+    },
+    {
+        "id": 91375,
+        "state": "CT",
+        "name": "Bozrah Light & Power Company",
+        "eia_id": 2089.0,
+        "avg_residential_rate": 0.1884,
+        "percent_renewable": 0.43
+    },
+    {
+        "id": 91381,
+        "state": "DC",
+        "name": "Potomac Electric Power Co",
+        "eia_id": 15270.0,
+        "avg_residential_rate": 0.1178,
+        "percent_renewable": 0.46
+    },
+    {
+        "id": 91382,
+        "state": "DE",
+        "name": "City of Dover - (DE)",
+        "eia_id": 5335.0,
+        "avg_residential_rate": 0.1239,
+        "percent_renewable": 0.03
+    },
+    {
+        "id": 91389,
+        "state": "FL",
+        "name": "Beaches Energy Services",
+        "eia_id": 9616.0,
+        "avg_residential_rate": 0.1059,
+        "percent_renewable": 0.16
+    },
+    {
+        "id": 91426,
+        "state": "GA",
+        "name": "Albany Utility Board",
+        "eia_id": null,
+        "avg_residential_rate": 0.1161,
+        "percent_renewable": 0.37
+    },
+    {
+        "id": 91484,
+        "state": "HI",
+        "name": "Hawaiian Electric Co Inc",
+        "eia_id": 19547.0,
+        "avg_residential_rate": 0.2874,
+        "percent_renewable": 0.18
+    },
+    {
+        "id": 91487,
+        "state": "IA",
+        "name": "Access Energy Coop",
+        "eia_id": 16611.0,
+        "avg_residential_rate": 0.1277,
+        "percent_renewable": 0.59
+    },
+    {
+        "id": 91488,
+        "state": "IA",
+        "name": "Amana Society Service Co",
+        "eia_id": 471.0,
+        "avg_residential_rate": 0.1321,
+        "percent_renewable": 0.59
+    },
+    {
+        "id": 91489,
+        "state": "IA",
+        "name": "Board of Water Electric & Communications",
+        "eia_id": 13143.0,
+        "avg_residential_rate": 0.1177,
+        "percent_renewable": 0.59
+    },
+    {
+        "id": 91511,
+        "state": "ID",
+        "name": "Avista Corp",
+        "eia_id": 20169.0,
+        "avg_residential_rate": 0.0985,
+        "percent_renewable": 0.71
+    },
+    {
+        "id": 91524,
+        "state": "IL",
+        "name": "Ameren Illinois Company",
+        "eia_id": 56697.0,
+        "avg_residential_rate": 0.0973,
+        "percent_renewable": 0.66
+    },
+    {
+        "id": 91525,
+        "state": "IL",
+        "name": "City of Batavia - (IL)",
+        "eia_id": 1325.0,
+        "avg_residential_rate": 0.1404,
+        "percent_renewable": 0.66
+    },
+    {
+        "id": 91549,
+        "state": "IN",
+        "name": "AGC Division of APGI Inc",
+        "eia_id": null,
+        "avg_residential_rate": null,
+        "percent_renewable": null
+    },
+    {
+        "id": 91595,
+        "state": "KS",
+        "name": "Alfalfa Electric Coop, Inc",
+        "eia_id": 296.0,
+        "avg_residential_rate": 0.0976,
+        "percent_renewable": 0.61
+    },
+    {
+        "id": 91617,
+        "state": "KY",
+        "name": "Big Sandy Rural Elec Coop Corp",
+        "eia_id": 1708.0,
+        "avg_residential_rate": 0.1115,
+        "percent_renewable": 0.07
+    },
+    {
+        "id": 91664,
+        "state": "LA",
+        "name": "Beauregard Electric Coop, Inc",
+        "eia_id": 1458.0,
+        "avg_residential_rate": 0.1079,
+        "percent_renewable": 0.26
+    },
+    {
+        "id": 91685,
+        "state": "MA",
+        "name": "City of Chicopee - (MA)",
+        "eia_id": 3477.0,
+        "avg_residential_rate": 0.1259,
+        "percent_renewable": 0.2
+    },
+    {
+        "id": 91706,
+        "state": "MD",
+        "name": "A & N Electric Coop",
+        "eia_id": 84.0,
+        "avg_residential_rate": 0.127,
+        "percent_renewable": 0.49
+    },
+    {
+        "id": 91715,
+        "state": "ME",
+        "name": "Central Maine Power Co",
+        "eia_id": 3266.0,
+        "avg_residential_rate": 0.1624,
+        "percent_renewable": 0.68
+    },
+    {
+        "id": 91720,
+        "state": "MI",
+        "name": "Alger-Delta Coop Electric Assn",
+        "eia_id": 305.0,
+        "avg_residential_rate": 0.2033,
+        "percent_renewable": 0.4
+    },
+    {
+        "id": 91752,
+        "state": "MN",
+        "name": "Agralite Electric Coop",
+        "eia_id": 155.0,
+        "avg_residential_rate": 0.1235,
+        "percent_renewable": 0.51
+    },
+    {
+        "id": 91797,
+        "state": "MO",
+        "name": "Boone Electric Coop",
+        "eia_id": 2001.0,
+        "avg_residential_rate": 0.1165,
+        "percent_renewable": 0.17
+    },
+    {
+        "id": 91841,
+        "state": "MS",
+        "name": "4-County Electric Power Assn",
+        "eia_id": 6641.0,
+        "avg_residential_rate": 0.1153,
+        "percent_renewable": 0.19
+    },
+    {
+        "id": 91882,
+        "state": "MT",
+        "name": "Avista Corp",
+        "eia_id": 20169.0,
+        "avg_residential_rate": 0.085,
+        "percent_renewable": 0.51
+    },
+    {
+        "id": 91897,
+        "state": "NC",
+        "name": "Albemarle Electric Member Corp",
+        "eia_id": 240.0,
+        "avg_residential_rate": 0.1374,
+        "percent_renewable": 0.47
+    },
+    {
+        "id": 91952,
+        "state": "ND",
+        "name": "Basin Electric Power Coop",
+        "eia_id": null,
+        "avg_residential_rate": null,
+        "percent_renewable": null
+    },
+    {
+        "id": 91971,
+        "state": "NE",
+        "name": "Cedar-Knox Public Power Dist",
+        "eia_id": 3205.0,
+        "avg_residential_rate": 0.0823,
+        "percent_renewable": 0.47
+    },
+    {
+        "id": 91995,
+        "state": "NH",
+        "name": "Liberty Utilities (Granite State Electric) Corp",
+        "eia_id": null,
+        "avg_residential_rate": null,
+        "percent_renewable": null
+    },
+    {
+        "id": 91999,
+        "state": "NJ",
+        "name": "Atlantic City Electric Co",
+        "eia_id": 963.0,
+        "avg_residential_rate": 0.1817,
+        "percent_renewable": 0.5
+    },
+    {
+        "id": 92005,
+        "state": "NM",
+        "name": "Central New Mexico El Coop, Inc",
+        "eia_id": 3273.0,
+        "avg_residential_rate": 0.1732,
+        "percent_renewable": 0.36
+    },
+    {
+        "id": 92026,
+        "state": "NV",
+        "name": "City of Boulder City - (NV)",
+        "eia_id": 2008.0,
+        "avg_residential_rate": 0.1031,
+        "percent_renewable": 0.3
+    },
+    {
+        "id": 92037,
+        "state": "NY",
+        "name": "Central Hudson Gas & Elec Corp",
+        "eia_id": 3249.0,
+        "avg_residential_rate": 0.1757,
+        "percent_renewable": 0.54
+    },
+    {
+        "id": 92052,
+        "state": "OH",
+        "name": "Buckeye Rural Elec Coop, Inc",
+        "eia_id": 2502.0,
+        "avg_residential_rate": 0.1633,
+        "percent_renewable": 0.17
+    },
+    {
+        "id": 92091,
+        "state": "OK",
+        "name": "Alfalfa Electric Coop, Inc",
+        "eia_id": 296.0,
+        "avg_residential_rate": 0.0963,
+        "percent_renewable": 0.44
+    },
+    {
+        "id": 92125,
+        "state": "OR",
+        "name": "Bonneville Power Administration",
+        "eia_id": null,
+        "avg_residential_rate": null,
+        "percent_renewable": null
+    },
+    {
+        "id": 92150,
+        "state": "PA",
+        "name": "Adams Electric Cooperative Inc",
+        "eia_id": 40220.0,
+        "avg_residential_rate": 0.1249,
+        "percent_renewable": 0.35
+    },
+    {
+        "id": 92172,
+        "state": "PR",
+        "name": "Puerto Rico Electric Pwr Authority",
+        "eia_id": null,
+        "avg_residential_rate": null,
+        "percent_renewable": null
+    },
+    {
+        "id": 92173,
+        "state": "RI",
+        "name": "Block Island Utility District",
+        "eia_id": null,
+        "avg_residential_rate": 0.4119,
+        "percent_renewable": 0.07
+    },
+    {
+        "id": 92176,
+        "state": "SC",
+        "name": "Aiken Electric Coop Inc",
+        "eia_id": 162.0,
+        "avg_residential_rate": 0.137,
+        "percent_renewable": 0.61
+    },
+    {
+        "id": 92207,
+        "state": "SD",
+        "name": "Black Hills Electric Coop, Inc",
+        "eia_id": 1769.0,
+        "avg_residential_rate": 0.142,
+        "percent_renewable": 0.83
+    },
+    {
+        "id": 92228,
+        "state": "TN",
+        "name": "Appalachian Electric Coop",
+        "eia_id": 727.0,
+        "avg_residential_rate": 0.1136,
+        "percent_renewable": 0.61
+    },
+    {
+        "id": 92316,
+        "state": "TX",
+        "name": "AEP Texas Central Company",
+        "eia_id": null,
+        "avg_residential_rate": null,
+        "percent_renewable": null
+    },
+    {
+        "id": 92402,
+        "state": "UT",
+        "name": "City of Bountiful",
+        "eia_id": 2010.0,
+        "avg_residential_rate": 0.1059,
+        "percent_renewable": 0.12
+    },
+    {
+        "id": 92421,
+        "state": "VA",
+        "name": "A & N Electric Coop",
+        "eia_id": 84.0,
+        "avg_residential_rate": 0.121,
+        "percent_renewable": 0.39
+    },
+    {
+        "id": 92441,
+        "state": "VT",
+        "name": "City of Burlington Electric - (VT)",
+        "eia_id": 2548.0,
+        "avg_residential_rate": 0.1565,
+        "percent_renewable": 1.0
+    },
+    {
+        "id": 92445,
+        "state": "WA",
+        "name": "Avista Corp",
+        "eia_id": 20169.0,
+        "avg_residential_rate": 0.0989,
+        "percent_renewable": 0.83
+    },
+    {
+        "id": 92485,
+        "state": "WI",
+        "name": "Adams-Columbia Electric Coop",
+        "eia_id": 108.0,
+        "avg_residential_rate": 0.1594,
+        "percent_renewable": 0.23
+    },
+    {
+        "id": 92551,
+        "state": "WV",
+        "name": "Appalachian Power Co",
+        "eia_id": 733.0,
+        "avg_residential_rate": 0.127,
+        "percent_renewable": 0.04
+    },
+    {
+        "id": 92556,
+        "state": "WY",
+        "name": "Black Hills Power, Inc.",
+        "eia_id": null,
+        "avg_residential_rate": null,
+        "percent_renewable": null
+    }
+]

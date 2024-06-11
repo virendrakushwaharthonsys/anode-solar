@@ -22,7 +22,7 @@
   import BuildingInsightsSection from './BuildingInsightsSection.svelte';
   import DataLayersSection from './DataLayersSection.svelte';
   import SolarPotentialSection from './SolarPotentialSection.svelte';
-
+  export let selectedStateRate: number;
   export let location: google.maps.LatLng;
   export let map: google.maps.Map;
   export let geometryLibrary: google.maps.GeometryLibrary;
@@ -89,7 +89,6 @@
       bind:expandedSection
       bind:configId
       bind:monthlyAverageEnergyBillInput
-      bind:energyCostPerKwhInput
       bind:panelCapacityWattsInput
       bind:dcToAcDerateInput
       solarPanelConfigs={buildingInsights.solarPotential.solarPanelConfigs}
