@@ -4,7 +4,7 @@
         "state": "AK",
         "name": "Alaska Electric Light & Power Co.",
         "eia_id": null,
-        "avg_residential_rate": null,
+        "avg_residential_rate": 0.2869,
         "percent_renewable": null
     },
     {
@@ -140,7 +140,7 @@
         "state": "IN",
         "name": "AGC Division of APGI Inc",
         "eia_id": null,
-        "avg_residential_rate": null,
+        "avg_residential_rate": 0.1391,
         "percent_renewable": null
     },
     {
@@ -244,7 +244,7 @@
         "state": "ND",
         "name": "Basin Electric Power Coop",
         "eia_id": null,
-        "avg_residential_rate": null,
+        "avg_residential_rate": 0.0809,
         "percent_renewable": null
     },
     {
@@ -260,7 +260,7 @@
         "state": "NH",
         "name": "Liberty Utilities (Granite State Electric) Corp",
         "eia_id": null,
-        "avg_residential_rate": null,
+        "avg_residential_rate": 0.1975,
         "percent_renewable": null
     },
     {
@@ -316,7 +316,7 @@
         "state": "OR",
         "name": "Bonneville Power Administration",
         "eia_id": null,
-        "avg_residential_rate": null,
+        "avg_residential_rate": 0.0913,
         "percent_renewable": null
     },
     {
@@ -372,7 +372,7 @@
         "state": "TX",
         "name": "AEP Texas Central Company",
         "eia_id": null,
-        "avg_residential_rate": null,
+        "avg_residential_rate": 0.1055,
         "percent_renewable": null
     },
     {
@@ -428,7 +428,7 @@
         "state": "WY",
         "name": "Black Hills Power, Inc.",
         "eia_id": null,
-        "avg_residential_rate": null,
+        "avg_residential_rate": 0.1128,
         "percent_renewable": null
     }
 ]

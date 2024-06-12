@@ -202,50 +202,72 @@
       placesService.textSearch({ query: addressFromUrl }, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK && results && results[0]) {
           const place = results[0];
-          if (place.geometry && place.geometry.location) {
-            map.setCenter(place.geometry.location);
-            map.setZoom(zoom);
-            location = place.geometry.location;
-            if (place.name) {
-              textFieldElement.value = place.name;
-            } else if (place.formatted_address) {
-              textFieldElement.value = place.formatted_address;
-            }
+          console.log('Place from URL (before details):', place); // Log the initial place data
 
-            // Extract the state from the place data
-            let state = '';
-            if (place.address_components) {
-              for (let i = 0; i < place.address_components.length; i++) {
-                const component = place.address_components[i];
-                if (component.types.includes('administrative_area_level_1')) {
-                  state = component.short_name;
-                  break; // No need to continue once state is found
+          if (place.place_id) {
+            const request = {
+              placeId: place.place_id,
+              fields: ['formatted_address', 'geometry', 'name', 'address_components'],
+            };
+
+            placesService.getDetails(request, (details, status) => {
+              if (status === google.maps.places.PlacesServiceStatus.OK && details) {
+                console.log('Place details from URL:', details); // Log the detailed place data
+
+                if (details.geometry && details.geometry.location) {
+                  map.setCenter(details.geometry.location);
+                  map.setZoom(zoom);
+                  location = details.geometry.location;
+                  if (details.name) {
+                    textFieldElement.value = details.name;
+                  } else if (details.formatted_address) {
+                    textFieldElement.value = details.formatted_address;
+                  }
+
+                  // Extracting state from the place data
+                  let state = '';
+                  if (details.address_components) {
+                    for (let i = 0; i < details.address_components.length; i++) {
+                      const component = details.address_components[i];
+                      if (component.types.includes('administrative_area_level_1')) {
+                        state = component.short_name;
+                        break; // No need to continue once state is found
+                      }
+                    }
+                  }
+
+                  // Now 'state' variable holds the state information
+                  console.log('State from URL address:', state);
+
+                  // Find the corresponding average residential rate based on the selected state
+                  if (energyData) {
+                    const selectedEnergyData = energyData.find(
+                      (data: { state: string }) => data.state === state,
+                    );
+                    if (selectedEnergyData) {
+                      selectedStateRate = selectedEnergyData.avg_residential_rate;
+                      localStorage.setItem('selectedStateRate', JSON.stringify(selectedStateRate));
+                      console.log('Selected State Rate from URL address:', selectedStateRate);
+                    } else {
+                      selectedStateRate = 0.31;
+                      localStorage.setItem('selectedStateRate', JSON.stringify(selectedStateRate));
+                      console.log('State data not found for URL address:', state);
+                    }
+                  } else {
+                    console.error('Energy data not available');
+                  }
                 }
               }
-            }
-
-            // Find the corresponding average residential rate based on the selected state
-            if (energyData) {
-              const selectedEnergyData = energyData.find(
-                (data: { state: string }) => data.state === state,
-              );
-              if (selectedEnergyData) {
-                selectedStateRate = selectedEnergyData.avg_residential_rate;
-                localStorage.setItem('selectedStateRate', JSON.stringify(selectedStateRate));
-                console.log('Selected State Rate:', selectedStateRate);
-                // Now 'selectedStateRate' holds the average residential rate for the selected state
-                // You can pass this to another component or use it as needed
-              } else {
-                selectedStateRate = 0.31;
-                localStorage.setItem('selectedStateRate', JSON.stringify(selectedStateRate));
-                console.log('State data not found for:', state);
-              }
-            } else {
-              console.error('Energy data not available');
-            }
+            });
+          } else {
+            console.error('No place_id found for the URL address');
           }
         }
       });
+    } else {
+      selectedStateRate = 0.31;
+      localStorage.setItem('selectedStateRate', JSON.stringify(selectedStateRate));
+      console.log('No address in URL, set default selectedStateRate to 0.31');
     }
   });
 </script>

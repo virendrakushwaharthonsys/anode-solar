@@ -62,7 +62,6 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  -->
--->
 
 <div>
   <table class="table-auto w-full body-medium secondary-text">
