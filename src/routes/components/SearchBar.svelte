@@ -108,7 +108,7 @@
 
   async function fetchData() {
     try {
-      const response = await fetch('/src/zipcode.json');
+      const response = await fetch('http://3.16.239.157/src/zipcode.json');
 
       if (!response.ok) {
         throw new Error('Failed to fetch data');
