@@ -108,7 +108,7 @@
 
   async function fetchData() {
     try {
-      const response = await fetch('./src/zipcode.json');
+      const response = await fetch('/src/zipcode.json');
 
       if (!response.ok) {
         throw new Error('Failed to fetch data');
@@ -268,6 +268,8 @@
       selectedStateRate = 0.31;
       localStorage.setItem('selectedStateRate', JSON.stringify(selectedStateRate));
       console.log('No address in URL, set default selectedStateRate to 0.31');
+
+
     }
   });
 </script>
